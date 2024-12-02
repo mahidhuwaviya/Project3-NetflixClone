@@ -5,7 +5,8 @@ import { firebaseAuth } from "../utils/FirebaseConfig";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
@@ -17,7 +18,8 @@ export default function Login() {
       const { email, password } = formValues;
       await signInWithEmailAndPassword(firebaseAuth, email, password);
     } catch (error) {
-      console.log("errorFrom HandkeSignin", error);
+      console.log("errorFrom HandkeSignin:", error);
+      toast.error(error.message);
     }
   };
 
@@ -31,8 +33,10 @@ export default function Login() {
     <>
       <Container>
         <BackgroundImage />
+
         <div className="content">
           <Header />
+
           <div className="form-container flex coloumn a-center j-center">
             <div className="form flex coloumn a-center j-center">
               <div className="tittle">
@@ -70,6 +74,7 @@ export default function Login() {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </Container>
     </>
   );

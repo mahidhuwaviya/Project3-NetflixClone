@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { fetchMovies, getGenres } from "../store/index";
 import { onAuthStateChanged } from "firebase/auth";
@@ -11,7 +11,7 @@ import NotAvailable from "../components/NotAvailable";
 import SelectGenre from "../components/SelectGenre";
 
 export default function TVShows() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
   const movies = useSelector((state) => state.netflix.movies);
@@ -33,13 +33,13 @@ export default function TVShows() {
 
   useEffect(() => {
     dispatch(getGenres());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (genresLoaded) {
       dispatch(fetchMovies({ type: "tv" }));
     }
-  }, [genresLoaded]);
+  }, [genresLoaded, dispatch]);
 
   return (
     <div>
